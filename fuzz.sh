@@ -15,18 +15,16 @@ cd ${libname}_fuzz
 wget https://www.nuget.org/api/v2/package/${libname}/
 unzip * -d extlib/
 echo "[+] Downloaded Library"
-/home/jannis/.dotnet/tools/sharpfuzz extlib/lib/netstandard2*/*${libname}*.dll
+sharpfuzz extlib/lib/netstandard2*/*${libname}*.dll
 echo "[+] Instrumented Library"
 cp extlib/lib/netstandard2*/*${libname}*.dll .
 dotnet new console
 echo "[+] Created Project"
 
-#project='</Project>'
-#sed -i 's/${project}//g' ${libname}_fuzz.csproj
 sed -i '$ d' ${libname}_fuzz.csproj
 
 read -d '' items << EOF 
-<ItemGroup> #maybe get libname
+<ItemGroup> 
   <Reference Include="${libname}">
     <HintPath>${libname}.dll</HintPath>
   </Reference>
