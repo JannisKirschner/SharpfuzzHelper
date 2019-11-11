@@ -1,0 +1,2 @@
+# SharpfuzzHelper
+Semi-Automated Fuzzing
